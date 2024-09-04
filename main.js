@@ -3,51 +3,37 @@ class LinkedList {
         this.list = list || [];
     }
     append(value) {
-        const node = new Node();
-        node.value = value;
-        this.list[this.list.length] = node;
-        if (this.list.length > 1) {
-            console.log(this.list.length)  
+        if (this.list[this.list.length - 1] instanceof Node) {
+            this.list[this.list.length] = new Node(value);
+            this.list[this.list.length-2].next = this.list[this.list.length-1];
+        } else {
+            this.list[this.list.length] = new Node(value);
         }
     }
     prepend(value) {
-        console.log('prepend', value);
-    }
-    size() {
-        console.log('size');
-    }
-    head() {
-        console.log('head');
-    }
-    tail() {
-        console.log('tail');
-    }
-    at(index) {
-        console.log('at', index);
-    }
-    pop() {
-        console.log('pop');
-    }
-    contains(value) {
-        console.log('contains', value);
-    }
-    find(value) {
-        console.log('find', value);
+        
     }
     toString() {
-        console.log('toString');
+        let string = "";
+        for (const item of Object.values(this.list)) {
+            string += `( ${item.value} ) -> `
+        }
+        string += "null";
+        return string;
     }
 }
 
 class Node {
-    constructor() {
-        this.value = null;
-        this.nextNode = null;
+    constructor(value, next) {
+        this.value = value;
+        this.next = next || null;
     }
 }
 
 const list = new LinkedList();
 list.append(12);
 list.append(14);
+list.append(15);
+list.append(23);
 
-console.log(list);
+console.log(list.toString());
